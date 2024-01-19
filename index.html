@@ -6,14 +6,14 @@ api_token = "1Vd6safq0aqpoVOiAEf8JDrvF-UAPhTwuI_XP2zH"
 account_id = "8d9e8a787ac78dde43a1e2542346042c"
 
 # Cloudflare Pages endpoint
-pages_endpoint = f"https://api.cloudflare.com/client/v4/accounts/{8d9e8a787ac78dde43a1e2542346042c}/pages/projects"
+pages_endpoint = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/pages/projects"
 
 # Application data
 application_data = {
-    "name": "livethemoment",
+    "name": "mycloudflarepagesapp",
     "files": [
         {
-            "file": "D:\\templates\\templates\\index.html",  # Path to your HTML file
+            "file": "D:\\templates\\templates\\index.html",  # Replace with the path to your HTML file
         },
     ],
     "production_branch": "main",  # Set a dummy production branch
@@ -25,7 +25,18 @@ headers = {
     "Content-Type": "application/json",
 }
 
+# Sample HTML content
+html_content = """
+Hello, Cloudflare Pages!
+This is a sample HTML content for your Cloudflare Pages application.
+"""
+
 try:
+    # Write HTML content to the specified file
+    with open(application_data["files"][0]["file"], "w", encoding="utf-8") as html_file:
+        html_file.write(html_content)
+    print(f"HTML file '{application_data['files'][0]['file']}' created successfully.")
+
     # Make a POST request to create the Cloudflare Page application
     response = requests.post(pages_endpoint, json=application_data, headers=headers)
 
